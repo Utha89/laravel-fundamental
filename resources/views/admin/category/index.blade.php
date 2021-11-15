@@ -2,12 +2,12 @@
 
 
 <div class="container">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+    {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         Hi... <b>{{ Auth::user()->name }}</b>
         <b style="float: right; ">Total Users
         <span class="badge badge-danger">{{ count($data) }}</span>
         </b>
-    </h2>
+    </h2> --}}
     <div class="row">
         <table class="table">
             <thead>
@@ -18,7 +18,7 @@
                 <th scope="col">Created at</th>
               </tr>
             </thead>
-            <tbody>
+            {{-- <tbody>
                 @php($i=1)
                 @foreach ($data as $data )
                 <tr>
@@ -30,7 +30,7 @@
 
                 @endforeach
 
-            </tbody>
+            </tbody> --}}
           </table>
     </div>
 </div>

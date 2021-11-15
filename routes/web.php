@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 
 /*
@@ -19,7 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Category Controller
+Route::get('/category/all',[CategoryController::class, 'index'])->name('category');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $data=User::all();
+    //$data=User::all();
+
+    $data=DB::table('users')->get();
     return view('dashboard',compact('data'));
 })->name('dashboard');
