@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 //Category Controller
 Route::get('/category/all',[CategoryController::class, 'index'])->name('category');
+//Insert category
+Route::post('/category/add',[CategoryController::class, 'storeCategory'])->name('store');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
