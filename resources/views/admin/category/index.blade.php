@@ -12,6 +12,13 @@
 
         <div class="col-md-8">
             <div class="card">
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
+
                 <div class="card-header">
                     All Category
                 </div>
@@ -33,12 +40,12 @@
                             <td>{{ $data->email }}</td>
                             <td>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</td>
                           </tr>
-        
+
                         @endforeach
-        
+
                     </tbody> --}}
                   </table>
-        
+
             </div>
         </div>
 
@@ -53,7 +60,7 @@
                     @csrf
                     <div class="form-group">
                       <label for="inputEmail3" >Category Name</label>
-                     
+
                         <input type="text" name="category_name" class="form-control" id="inputEmail3">
                         @error('category_name')
                             <span class="text-danger">{{ $message }}</span>
@@ -62,8 +69,8 @@
                     <br>
                         <button type="submit" class="btn btn-primary">Sign in</button>
 
-                 
-                    
+
+
                   </form>
                 </div>
             </div>
