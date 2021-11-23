@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -32,20 +33,27 @@ class CategoryController extends Controller
 
         //Insert data pake orm
 
+        /*
         //Cara 1
         Category::insert([
             'category_name' => $request->category_name,
             //dpetin user id dr auth user
             'user_id' => Auth::user()->id,
-            'created_at'=> Carbon::now()
+            'created_at' => Carbon::now()
         ]);
-
+        */
         //cara 2 kaya pake object gtu
         // $category = new Category();
         // $category->category_name= $request->category_name;
         // $category->user_id= Auth::user()->id;
         // $category->save();
 
+        //Insert by Query builder
+        $data = array();
+        $data['category_name'] = $request->category_name;
+        $data['user_id'] = Auth::user()->id;
+        $data['created_at'] =  Carbon::now();
+        DB::table('categories')->insert($data);
         return Redirect()->back()->with('success', 'category inserted successfull');
     }
 }
