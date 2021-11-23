@@ -26,24 +26,40 @@
                     <thead>
                       <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">User</th>
                         <th scope="col">Created at</th>
                       </tr>
                     </thead>
-                    {{-- <tbody>
+                    <tbody>
                         @php($i=1)
                         @foreach ($data as $data )
                         <tr>
                             <th scope="row">{{ $i++ }}</th>
-                            <td>{{ $data->name }}</td>
-                            <td>{{ $data->email }}</td>
-                            <td>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</td>
+                            <td>{{ $data->category_name }}</td>
+                            <td>{{ $data->user_id }}</td>
+                            <td>
+                            @if ($data->created_at == null)
+                                <span class="text-danger">No Data Set</span>
+
+                            @else
+                            <!--ORM-->
+                            {{-- {{$data->created_at->diffForHumans()}} --}}
+
+
+                            {{-- Query Builder --}}
+                            {{( \Carbon\Carbon::parse($data->created_at)->diffForHumans()) }}
+
+
+
+
+                            @endif
+                        </td>
                           </tr>
 
                         @endforeach
 
-                    </tbody> --}}
+                    </tbody>
                   </table>
 
             </div>

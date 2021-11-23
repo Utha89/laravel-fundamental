@@ -14,7 +14,23 @@ class CategoryController extends Controller
     //Index
     public function index()
     {
-        return view('admin.category.index');
+        //Read data dengan orm
+        //Parsing data tdk pake compact
+        // $data['data'] = Category::all();
+        // return view('admin.category.index', $data);
+
+        //Parsing data pake compact
+        //pake latest sama aja kaya order by
+        // $data = Category::latest()->get();
+        // return view('admin.category.index', compact('data'));
+
+
+        //Read data pake query builder
+        //cara 1
+        $data['data'] = DB::select('select * from categories ORDER BY CATEGORY_NAME DESC');
+       //cara 2
+       //$data['data'] = DB::table('categories')->latest()->get();
+        return view('admin.category.index', $data);
     }
 
     //Add category
