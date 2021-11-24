@@ -13,4 +13,9 @@ class Category extends Model
         'user_id',
         'category_name',
     ];
+
+    //join dengan satu tabel atau hash one
+    public function user(){
+        return $this->hasOne(User::class,'id', 'user_id');
+    }
 }

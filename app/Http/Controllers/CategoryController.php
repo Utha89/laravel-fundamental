@@ -17,6 +17,7 @@ class CategoryController extends Controller
         //Read data dengan orm
         //Parsing data tdk pake compact
         // $data['data'] = Category::all();
+        $data['data'] = Category::latest()->paginate(5);
         // return view('admin.category.index', $data);
 
         //Parsing data pake compact
@@ -29,7 +30,7 @@ class CategoryController extends Controller
         //cara 1
         //$data['data'] = DB::select('select * from categories ORDER BY CATEGORY_NAME DESC');
        //cara 2
-       $data['data'] = DB::table('categories')->latest()->paginate(5);
+    //    $data['data'] = DB::table('categories')->latest()->paginate(5);
         return view('admin.category.index', $data);
     }
 

@@ -37,7 +37,7 @@
                         <tr>
                             <th scope="row">{{ $data->firstItem()+$loop->index }}</th>
                             <td>{{ $datax->category_name }}</td>
-                            <td>{{ $datax->user_id }}</td>
+                            <td>{{ $datax->user->name}}</td>
                             <td>
                             @if ($datax->created_at == null)
                                 <span class="text-danger">No Data Set</span>
