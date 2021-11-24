@@ -27,9 +27,9 @@ class CategoryController extends Controller
 
         //Read data pake query builder
         //cara 1
-        $data['data'] = DB::select('select * from categories ORDER BY CATEGORY_NAME DESC');
+        //$data['data'] = DB::select('select * from categories ORDER BY CATEGORY_NAME DESC');
        //cara 2
-       //$data['data'] = DB::table('categories')->latest()->get();
+       $data['data'] = DB::table('categories')->latest()->paginate(5);
         return view('admin.category.index', $data);
     }
 

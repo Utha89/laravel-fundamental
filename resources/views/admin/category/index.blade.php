@@ -32,14 +32,14 @@
                       </tr>
                     </thead>
                     <tbody>
-                        @php($i=1)
-                        @foreach ($data as $data )
+                        {{-- @php($i=1) --}}
+                        @foreach ($data as $datax )
                         <tr>
-                            <th scope="row">{{ $i++ }}</th>
-                            <td>{{ $data->category_name }}</td>
-                            <td>{{ $data->user_id }}</td>
+                            <th scope="row">{{ $data->firstItem()+$loop->index }}</th>
+                            <td>{{ $datax->category_name }}</td>
+                            <td>{{ $datax->user_id }}</td>
                             <td>
-                            @if ($data->created_at == null)
+                            @if ($datax->created_at == null)
                                 <span class="text-danger">No Data Set</span>
 
                             @else
@@ -48,7 +48,7 @@
 
 
                             {{-- Query Builder --}}
-                            {{( \Carbon\Carbon::parse($data->created_at)->diffForHumans()) }}
+                            {{( \Carbon\Carbon::parse($datax->created_at)->diffForHumans()) }}
 
 
 
@@ -61,7 +61,7 @@
 
                     </tbody>
                   </table>
-
+                  {{ $data->links() }}
             </div>
         </div>
 
