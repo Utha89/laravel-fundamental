@@ -17,7 +17,7 @@ class CategoryController extends Controller
         //Read data dengan orm
         //Parsing data tdk pake compact
         // $data['data'] = Category::all();
-        $data['data'] = Category::latest()->paginate(5);
+        //$data['data'] = Category::latest()->paginate(5);//coba untuk tabel join dan di modelnya edit jg
         // return view('admin.category.index', $data);
 
         //Parsing data pake compact
@@ -31,7 +31,20 @@ class CategoryController extends Controller
         //$data['data'] = DB::select('select * from categories ORDER BY CATEGORY_NAME DESC');
        //cara 2
     //    $data['data'] = DB::table('categories')->latest()->paginate(5);
-        return view('admin.category.index', $data);
+
+        //query builder untuk join
+        $data = DB::table('categories')
+        ->join('users','categories.user_id','users.id')
+        ->select('categories.*','users.name')
+        ->latest()->paginate(5);
+        return view('admin.category.index',
+        [
+            'data' =>  $data,
+            'total' => $data->total(),
+            'perPage' => $data->perPage(),
+            'currentPage' => $data->currentPage()
+        ]
+        );
     }
 
     //Add category
