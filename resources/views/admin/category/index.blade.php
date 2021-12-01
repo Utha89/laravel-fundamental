@@ -29,6 +29,8 @@
                         <th scope="col">Category Name</th>
                         <th scope="col">User</th>
                         <th scope="col">Created at</th>
+                        <th scope="col">Action</th>
+
                       </tr>
                     </thead>
                     <tbody>
@@ -37,23 +39,31 @@
                         <tr>
                             <th scope="row">{{ $data->firstItem()+$loop->index }}</th>
                             <td>{{ $datax->category_name }}</td>
-                            <td>{{ $datax->name}}</td>
+                             <!--Join Pake query orm -->
+                            <td>{{ $datax->user->name }}</td>
+                           <!--Join Pake query builder -->
+                           {{-- <td>{{ $datax->name}}</td> --}}
                             <td>
                             @if ($datax->created_at == null)
                                 <span class="text-danger">No Data Set</span>
 
                             @else
-                            <!--ORM-->
+                            <!--Query Builder-->
                             {{-- {{$data->created_at->diffForHumans()}} --}}
 
 
-                            {{-- Query Builder --}}
+                            {{-- Query Orm --}}
                             {{( \Carbon\Carbon::parse($datax->created_at)->diffForHumans()) }}
 
 
 
 
                             @endif
+                        </td>
+                        <td>
+                            <a href="{{ url('category/edit/'.$datax->id) }}" class="btn btn-info">Edit</a>
+                            <a href="" class="btn btn-danger">Delete</a>
+
                         </td>
                           </tr>
 

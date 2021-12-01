@@ -14,10 +14,10 @@ class Category extends Model
         'category_name',
     ];
 
-    //join dengan satu tabel atau hash one
-    /*
+    //join dengan satu tabel atau hash one pakai orm
+
     public function user(){
         return $this->hasOne(User::class,'id', 'user_id');
     }
-    */
+
 }

@@ -17,15 +17,16 @@ class CategoryController extends Controller
         //Read data dengan orm
         //Parsing data tdk pake compact
         // $data['data'] = Category::all();
-        //$data['data'] = Category::latest()->paginate(5);//coba untuk tabel join dan di modelnya edit jg
-        // return view('admin.category.index', $data);
+         //query orm untuk join
+        $data['data'] = Category::latest()->paginate(5);//coba untuk tabel join dan di modelnya edit jg
+        return view('admin.category.index', $data);
 
         //Parsing data pake compact
         //pake latest sama aja kaya order by
         // $data = Category::latest()->get();
         // return view('admin.category.index', compact('data'));
 
-
+        //=========================================//
         //Read data pake query builder
         //cara 1
         //$data['data'] = DB::select('select * from categories ORDER BY CATEGORY_NAME DESC');
@@ -33,6 +34,7 @@ class CategoryController extends Controller
     //    $data['data'] = DB::table('categories')->latest()->paginate(5);
 
         //query builder untuk join
+       /*
         $data = DB::table('categories')
         ->join('users','categories.user_id','users.id')
         ->select('categories.*','users.name')
@@ -45,6 +47,7 @@ class CategoryController extends Controller
             'currentPage' => $data->currentPage()
         ]
         );
+        */
     }
 
     //Add category
@@ -85,5 +88,23 @@ class CategoryController extends Controller
         $data['created_at'] =  Carbon::now();
         DB::table('categories')->insert($data);
         return Redirect()->back()->with('success', 'category inserted successfull');
+    }
+
+    //edit form with orm
+    public function Edit($id){
+        $data['data'] = Category::find($id);
+        return view('admin.category.edit', $data);
+    }
+
+    //edit process form with orm
+    public function Update_process(Request $request, $id){
+
+        //orm update
+        $data= Category::find($id)->update([
+            'category_name' => $request->category_name,
+            'user_id'=>Auth::user()->id,
+        ]);
+
+        return Redirect()->route('category')->with('success', 'category Updated successfull');
     }
 }
