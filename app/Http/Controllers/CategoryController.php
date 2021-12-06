@@ -91,19 +91,39 @@ class CategoryController extends Controller
     }
 
     //edit form with orm
+    // public function Edit($id){
+    //     $data['data'] = Category::find($id);
+    //     return view('admin.category.edit', $data);
+    // }
+
+    //edit form with query builder
     public function Edit($id){
-        $data['data'] = Category::find($id);
+        $data['data'] = DB::table('categories')->where('id', $id)->first();
         return view('admin.category.edit', $data);
     }
 
+
     //edit process form with orm
+    // public function Update_process(Request $request, $id){
+
+    //     //orm update
+    //     $data= Category::find($id)->update([
+    //         'category_name' => $request->category_name,
+    //         'user_id'=>Auth::user()->id,
+    //     ]);
+
+    //     return Redirect()->route('category')->with('success', 'category Updated successfull');
+    // }
+
+    //edit process form with query builder
     public function Update_process(Request $request, $id){
 
-        //orm update
-        $data= Category::find($id)->update([
-            'category_name' => $request->category_name,
-            'user_id'=>Auth::user()->id,
-        ]);
+        //query builder update
+        $data=array();
+        $data['category_name']= $request->category_name;
+        $data['user_id']= Auth::user()->id;
+        DB::table('categories')->where('id',$id)->update($data);
+
 
         return Redirect()->route('category')->with('success', 'category Updated successfull');
     }
