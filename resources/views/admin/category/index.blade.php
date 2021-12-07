@@ -162,8 +162,8 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ url('category/edit/'.$datax->id) }}" class="btn btn-info">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{{ url('category/restore/'.$datax->id) }}" class="btn btn-info">Restore</a>
+                            <a href="{{ url('category/delete/'.$datax->id) }}" class="btn btn-danger">Delete</a>
 
                         </td>
                           </tr>

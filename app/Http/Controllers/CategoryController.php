@@ -148,6 +148,20 @@ class CategoryController extends Controller
     public function SoftDelete($id){
         //orm
         $data =Category::find($id)->delete();
-        return Redirect()->back()->with('success', 'category delete successfull');
+        return Redirect()->back()->with('success', 'category Soft delete successfull');
+    }
+
+     //Function REstore from Soft delete
+     public function Restore($id){
+        //orm
+        $data =Category::withTrashed()->find($id)->restore();
+        return Redirect()->back()->with('success', 'category Restore successfull');
+    }
+
+     //Function delete
+     public function Delete($id){
+        //orm
+        $data =Category::onlyTrashed()->find($id)->forceDelete();
+        return Redirect()->back()->with('success', 'category Delete successfull');
     }
 }
