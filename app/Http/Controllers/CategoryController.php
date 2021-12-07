@@ -17,9 +17,23 @@ class CategoryController extends Controller
         //Read data dengan orm
         //Parsing data tdk pake compact
         // $data['data'] = Category::all();
-         //query orm untuk join
-        $data['data'] = Category::latest()->paginate(5);//coba untuk tabel join dan di modelnya edit jg
-        return view('admin.category.index', $data);
+        //query orm untuk join
+        //tanpa soft delete
+        //$data['data'] = Category::latest()->paginate(5);//coba untuk tabel join dan di modelnya edit jg
+        //Tanpa sof delete
+        // return view('admin.category.index', $data);
+
+        //orm pakai soft delete
+        $data = Category::latest()->paginate(5);
+        $trashCat = Category::onlyTrashed()->latest()->paginate(3);
+        return view(
+            'admin.category.index',
+            [
+                'data' =>  $data,
+                'trashCat' => $trashCat
+            ]
+        );
+
 
         //Parsing data pake compact
         //pake latest sama aja kaya order by
@@ -30,11 +44,11 @@ class CategoryController extends Controller
         //Read data pake query builder
         //cara 1
         //$data['data'] = DB::select('select * from categories ORDER BY CATEGORY_NAME DESC');
-       //cara 2
-    //    $data['data'] = DB::table('categories')->latest()->paginate(5);
+        //cara 2
+        //    $data['data'] = DB::table('categories')->latest()->paginate(5);
 
         //query builder untuk join
-       /*
+        /*
         $data = DB::table('categories')
         ->join('users','categories.user_id','users.id')
         ->select('categories.*','users.name')
@@ -97,7 +111,8 @@ class CategoryController extends Controller
     // }
 
     //edit form with query builder
-    public function Edit($id){
+    public function Edit($id)
+    {
         $data['data'] = DB::table('categories')->where('id', $id)->first();
         return view('admin.category.edit', $data);
     }
@@ -116,15 +131,23 @@ class CategoryController extends Controller
     // }
 
     //edit process form with query builder
-    public function Update_process(Request $request, $id){
+    public function Update_process(Request $request, $id)
+    {
 
         //query builder update
-        $data=array();
-        $data['category_name']= $request->category_name;
-        $data['user_id']= Auth::user()->id;
-        DB::table('categories')->where('id',$id)->update($data);
+        $data = array();
+        $data['category_name'] = $request->category_name;
+        $data['user_id'] = Auth::user()->id;
+        DB::table('categories')->where('id', $id)->update($data);
 
 
         return Redirect()->route('category')->with('success', 'category Updated successfull');
+    }
+
+    //Function Soft delete
+    public function SoftDelete($id){
+        //orm
+        $data =Category::find($id)->delete();
+        return Redirect()->back()->with('success', 'category delete successfull');
     }
 }

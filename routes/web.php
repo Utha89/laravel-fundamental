@@ -34,6 +34,9 @@ Route::get('/category/edit/{id}',[CategoryController::class, 'Edit']);
 //Update proses category
 Route::post('/category/update_process/{id}',[CategoryController::class, 'Update_process']);
 
+//Soft delete category
+Route::get('/softdelete/category/{id}',[CategoryController::class, 'softDelete']);
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
 
