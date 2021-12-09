@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
+use App\Models\Brand;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +44,10 @@ Route::get('/category/restore/{id}',[CategoryController::class, 'Restore']);
 
 // delete category
 Route::get('category/delete/{id}',[CategoryController::class, 'Delete']);
+
+
+//Brand Controller
+Route::get('/brand/all',[BrandController::class, 'index'])->name('brand');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
