@@ -40,7 +40,7 @@
                                 <th scope="row">{{ $data->firstItem()+$loop->index }}</th>
                                 <td>{{ $datax->brand_name }}</td>
 
-                                <td><img src="" alt=""></td>
+                                <td><img src="{{ asset($datax->brand_image) }}" style="height: 40px; width: 70px"></td>
 
                                 <td>
                                 @if ($datax->created_at == null)
@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="card-body">
-                    <form action="" method="POST">
+                    <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                           <label for="inputEmail3" >Brand Name</label>
