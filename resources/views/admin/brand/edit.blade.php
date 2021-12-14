@@ -13,13 +13,20 @@
 
             <div class="col-md-8">
                 <div class="card">
+                    @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success') }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    @endif
                     <div class="card-header">
                         Edit Brands
                     </div>
 
                     <div class="card-body">
-                    <form action="{{ url('brand/update_process/'.$data->id) }}" method="POST">
+                    <form action="{{ url('brand/update_process/'.$data->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="old_image" value="{{ $data->brand_image }}"/>
                         <div class="form-group">
                           <label for="inputEmail3" >Brand Name</label>
 
