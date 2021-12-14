@@ -52,6 +52,9 @@ Route::get('/brand/all',[BrandController::class, 'index'])->name('brand');
 //Insert brand
 Route::post('/brand/add',[BrandController::class, 'storeBrand'])->name('store');
 
+//Update brand
+Route::get('/brand/edit/{id}',[BrandController::class, 'Edit']);
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
 
