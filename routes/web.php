@@ -58,6 +58,9 @@ Route::get('/brand/edit/{id}',[BrandController::class, 'Edit']);
 //Update proses brand image
 Route::post('/brand/update_process/{id}',[BrandController::class, 'Update_process']);
 
+//Delete proses brand image
+Route::get('/brand/delete_process/{id}',[BrandController::class, 'Delete_process']);
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
 
