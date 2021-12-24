@@ -145,23 +145,63 @@ class CategoryController extends Controller
     }
 
     //Function Soft delete
-    public function SoftDelete($id){
+    public function SoftDelete($id)
+    {
         //orm
-        $data =Category::find($id)->delete();
+        $data = Category::find($id)->delete();
         return Redirect()->back()->with('success', 'category Soft delete successfull');
     }
 
-     //Function REstore from Soft delete
-     public function Restore($id){
+    //Function REstore from Soft delete
+    public function Restore($id)
+    {
         //orm
-        $data =Category::withTrashed()->find($id)->restore();
+        $data = Category::withTrashed()->find($id)->restore();
         return Redirect()->back()->with('success', 'category Restore successfull');
     }
 
-     //Function delete
-     public function Delete($id){
+    //Function delete
+    public function Delete($id)
+    {
         //orm
-        $data =Category::onlyTrashed()->find($id)->forceDelete();
+        $data = Category::onlyTrashed()->find($id)->forceDelete();
         return Redirect()->back()->with('success', 'category Delete successfull');
+    }
+
+    //data table
+    public function data(Request $request)
+    {
+        $orderBy = 'categories.id';
+        switch ($request->input('order.0.column')) {
+            case "1":
+                $orderBy = 'categories.category_name';
+                break;
+            case "2":
+                $orderBy = 'users.name';
+                break;
+        }
+        $data = Category::select([
+            'categories.*',
+            'users.name as nama_user'
+        ])
+            //->where('status', $jenis)
+            ->join('users', 'users.id', '=', 'categories.user_id');
+        if ($request->input('search.value') != null) {
+            $data = $data->where(function ($q) use ($request) {
+                $q->whereRaw('LOWER(categories.category_name) like ? ', ['%' . strtolower($request->input('search.value')) . '%'])
+                    ->orWhereRaw('LOWER(users.name) like ? ', ['%' . strtolower($request->input('search.value')) . '%']);
+            });
+        }
+        $recordsFiltered = $data->get()->count();
+        if($request->input('length')!=-1) $data = $data->skip($request->input('start'))->take($request->input('length'));
+        $data = $data->orderBy($orderBy,$request->input('order.0.dir'))->get();
+        $recordsTotal = $data->count();
+        return response()->json([
+            'draw'=>$request->input('draw'),
+            'recordsTotal'=>$recordsTotal,
+            'recordsFiltered'=>$recordsFiltered,
+            'data'=>$data
+        ]);
+
     }
 }

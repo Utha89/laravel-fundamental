@@ -64,6 +64,9 @@ Route::get('/brand/delete_process/{id}',[BrandController::class, 'Delete_process
 //multi image
 Route::get('/multipic/all',[BrandController::class, 'Multipic'])->name('multipic');
 
+Route::any('/category/data',[CategoryController::class, 'Data']);
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
 

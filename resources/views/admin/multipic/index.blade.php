@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="inputEmail3" >Image</label>
 
-                              <input type="file" name="image" class="form-control" id="inputEmail3">
+                              <input type="file" name="image" class="form-control" id="inputEmail3" multiple>
                               @error('image')
                                   <span class="text-danger">{{ $message }}</span>
                               @enderror
