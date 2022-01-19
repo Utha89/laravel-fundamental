@@ -76,6 +76,9 @@ Route::post('/category/add',[DatatableController::class, 'storedataTable'])->nam
 Route::get('/email',[EmailController::class, 'kirim']);
 Route::get('/attach',[EmailController::class, 'attach']);
 
+//Route Notifikasi
+Route::get('/pesan',[EmailController::class, 'notif']);
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
 
