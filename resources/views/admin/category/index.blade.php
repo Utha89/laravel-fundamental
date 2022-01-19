@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="card-body">
-                <form action="{{ route('store') }}" method="POST">
+                <form action="{{ route('storeCategory') }}" method="POST">
                     @csrf
                     <div class="form-group">
                       <label for="inputEmail3" >Category Name</label>
@@ -182,90 +182,6 @@
 </div>
 
 
-<!--Data Table-->
-<div class="container">
-    {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Hi... <b>{{ Auth::user()->name }}</b>
-        <b style="float: right; ">Total Users
-        <span class="badge badge-danger">{{ count($data) }}</span>
-        </b>
-    </h2> --}}
-    <div class="row">
-        <html lang="en">
 
-
-        <div class="col-md-8">
-            <div class="card">
-
-
-                <div class="card-header">
-                    Data Table
-                </div>
-                <table class="table table-bordered" id="users-table">
-                    <thead>
-                        <tr>
-                            <th>Column 1</th>
-                            <th>Column 2</th>
-                        </tr>
-                    </thead>
-
-                </table>
-            </div>
-        </div>
-
-
-        </div>
-</div>
 </div>
 </x-app-layout>
-<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-<script>
-$(function() {
-    $(document).ready( function () {
-    $('#users-table').DataTable({
-    "pageLength": 100,
-    "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'semua']],
-    "bLengthChange": true,
-    "bFilter": true,
-    "bInfo": true,
-    "processing":true,
-    "bServerSide": true,
-    "order": [[ 1, "desc" ]],
-    "autoWidth": false,
-
-    "ajax":{
-      url: "{{url('')}}/category/data",
-      type: "GET",
-    //   data:function(d){
-    //     d.organisasi = organisasi;
-    //     d.bpjs_kesehatan = bpjs_kesehatan;
-    //     d.bpjs_ketenagakerjaan = bpjs_ketenagakerjaan;
-    //     return d
-    //   }
-    },
-    columnDefs: [
-
-      {
-        "targets": 0,
-        "class":"text-nowrap",
-        "render": function(data, type, row, meta){
-            return row.category_name;
-        }
-      },
-      {
-        "targets": 1,
-        "class":"text-nowrap",
-        "render": function(data, type, row, meta){
-          return row.nama_user;
-        }
-      }
-
-    ]
-    });
-    });
-});
-</script>

@@ -103,6 +103,10 @@ class CategoryController extends Controller
         DB::table('categories')->insert($data);
         return Redirect()->back()->with('success', 'category inserted successfull');
     }
+    //Add category by ajax
+    public function storedataTable(Request $request){
+        dd($request->all());
+    }
 
     //edit form with orm
     // public function Edit($id){
@@ -133,7 +137,6 @@ class CategoryController extends Controller
     //edit process form with query builder
     public function Update_process(Request $request, $id)
     {
-
         //query builder update
         $data = array();
         $data['category_name'] = $request->category_name;

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\DatatableController;
+use App\Http\Controllers\EmailController;
 use App\Models\Brand;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +31,7 @@ Route::get('/', function () {
 //Category Controller
 Route::get('/category/all',[CategoryController::class, 'index'])->name('category');
 //Insert category
-Route::post('/category/add',[CategoryController::class, 'storeCategory'])->name('store');
+Route::post('/category/add',[CategoryController::class, 'storeCategory'])->name('storeCategory');
 
 //Update category
 Route::get('/category/edit/{id}',[CategoryController::class, 'Edit']);
@@ -64,8 +66,15 @@ Route::get('/brand/delete_process/{id}',[BrandController::class, 'Delete_process
 //multi image
 Route::get('/multipic/all',[BrandController::class, 'Multipic'])->name('multipic');
 
-Route::any('/category/data',[CategoryController::class, 'Data']);
 
+//Datatable Controller
+Route::get('/datatable',[DatatableController::class, 'index']);
+Route::any('/datatable/data',[DatatableController::class, 'Data']);
+Route::post('/category/add',[DatatableController::class, 'storedataTable'])->name('storedataTable');
+
+//Email
+Route::get('/email',[EmailController::class, 'kirim']);
+Route::get('/attach',[EmailController::class, 'attach']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
