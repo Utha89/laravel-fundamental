@@ -18,11 +18,16 @@ class EmailController extends Controller
         //return new Email();
     }
 
-    public function attach()
+    public function attach(Request $request)
     {
         # code...
         //package Email kirim ke email dituju dan Panggil class Email()
-        Mail::to('pcntonk@gmail.com')->send(new EmailAttach());
+        // Mail::to('pcntonk@gmail.com')->send(new EmailAttach());
+        //dengan isi text dinamis
+        $data = [
+            'subject' => 'Pengiriman Barang'
+        ];
+        Mail::to('pcntonk@gmail.com')->send(new EmailAttach($data));
         //return new Email();
     }
 }
