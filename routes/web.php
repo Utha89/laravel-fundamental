@@ -6,6 +6,7 @@ use App\Http\Controllers\DatatableController;
 use App\Http\Controllers\EmailController;
 use App\Models\Brand;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -70,7 +71,7 @@ Route::get('/multipic/all',[BrandController::class, 'Multipic'])->name('multipic
 //Datatable Controller
 Route::get('/datatable',[DatatableController::class, 'index']);
 Route::any('/datatable/data',[DatatableController::class, 'Data']);
-Route::post('/category/add',[DatatableController::class, 'storedataTable'])->name('storedataTable');
+// Route::post('/category/add',[DatatableController::class, 'storedataTable'])->name('storedataTable');
 
 //Email
 Route::get('/email',[EmailController::class, 'kirim']);
@@ -79,6 +80,8 @@ Route::get('/attach',[EmailController::class, 'attach']);
 //Route Notifikasi
 Route::get('/pesan',[EmailController::class, 'notif']);
 
+
+//Auth::routes(['verify' => true]);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$data=User::all();
 
