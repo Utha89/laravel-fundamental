@@ -30,7 +30,7 @@ Route::get('/', function () {
 });
 
 //Category Controller
-Route::get('/category/all',[CategoryController::class, 'index'])->name('category');
+// Route::get('/category/all',[CategoryController::class, 'index'])->name('category');
 //Insert category
 Route::post('/category/add',[CategoryController::class, 'storeCategory'])->name('storeCategory');
 
@@ -50,7 +50,7 @@ Route::get('category/delete/{id}',[CategoryController::class, 'Delete']);
 
 
 //Brand Controller
-Route::get('/brand/all',[BrandController::class, 'index'])->name('brand');
+Route::get('/brand/all',[BrandController::class, 'index'])->name('brand')->middleware('auth');
 
 //Insert brand
 Route::post('/brand/add',[BrandController::class, 'storeBrand'])->name('store');
@@ -88,3 +88,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $data=DB::table('users')->get();
     return view('dashboard',compact('data'));
 })->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    //
+    Route::get('/category/all',[CategoryController::class, 'index'])->name('category');
+
+});
