@@ -88,6 +88,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $data=DB::table('users')->get();
     return view('dashboard',compact('data'));
 })->name('dashboard');
+
 Route::middleware(['auth'])->group(function () {
     //
     Route::get('/category/all',[CategoryController::class, 'index'])->name('category');

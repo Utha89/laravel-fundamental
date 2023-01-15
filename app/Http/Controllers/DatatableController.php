@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\DB;
 class DatatableController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('admin.datatable.index');
